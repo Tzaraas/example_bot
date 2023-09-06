@@ -16,13 +16,18 @@ API_DICT_KEY = os.getenv("API_DICT_KEY")
 if API_DICT_KEY is None:
     exit("API_DICT_KEY отсутствует в переменных окружения")
 
-DB_PATH = r"database\database.db"
+if os.path.exists(r"database\database.db"):
+    DB_PATH = r"database\database.db"
+else:
+    with open(r"database\database.db", 'w') as db:
+        DB_PATH = r"database\database.db"
 
 DATE_FORMAT = "%d.%m.%Y"
 
 DEFAULT_COMMANDS = (
     ("start", "Начало"),
-    ("newtask", "Создать задачу"),
-    ("tasks", "Последние 10 задач"),
-    ("today", "Задачи на сегодня")
 )
+
+API_BASE_URL = 'https://dictionary.yandex.net/api/v1/dicservice.json'
+
+DEFAULT_LANG = 'ru-en'

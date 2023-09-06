@@ -1,6 +1,9 @@
+import sqlite3
 from telebot import types
-from database.ORM_conf import User
 from peewee import IntegrityError
+
+from database.db_conf import User, get_script
+from config_data.config import DEFAULT_LANG
 from .states import States
 
 
@@ -13,17 +16,18 @@ def initialization_main_handlers(bot):
         try:
             User.create(
                 user_id=user_id,
-                user_name=user_name
+                user_name=user_name,
+                user_lang=DEFAULT_LANG
             )
             bot.reply_to(message, "Добро пожаловать!")
         except IntegrityError:
-            bot.reply_to(message, f"Рад вас снова видеть, {user_name}!")
+            bot.reply_to(message, f"Рад видеть вас снова, {user_name}!")
 
         main_menu(message)
 
 
     def main_menu(message):
-        markup1 = types.ReplyKeyboardMarkup(resize_keyboard=True)
+        markup1 = types.ReplyKeyboardMarkup(resize_keyboard=True, is_persistent=True)
         item1 = types.KeyboardButton("Планировщик задач")
         item2 = types.KeyboardButton("Перевод текста")
         markup1.add(item1, item2)
@@ -35,25 +39,31 @@ def initialization_main_handlers(bot):
     def button(message):
         match message.text:
             case "Планировщик задач":
-                markup2 = types.ReplyKeyboardMarkup(resize_keyboard=True)
-                item1 = types.MenuButtonCommands("Создать задачу")
-                item2 = types.MenuButtonCommands("Последние 10 задач")
-                item3 = types.MenuButtonCommands("Задачи на сегодня")
-                markup2.add(item1, item2, item3)
-                bot.send_message(message.chat.id, "Выберите действие", reply_markup=markup2)
+                menu_tasks(message)
 
             case "Перевод текста":
-                pass
-
-            case "Создать задачу":
-                bot.send_message(message.chat.id, "/newtask")
-
-            case "Последние 10 задач":
-                bot.send_message(message.chat.id, "/tasks")
-
-            case "Задачи на сегодня":
-                bot.send_message(message.chat.id, "/today")
+                menu_dictionary(message)
 
             case _:
-                bot.reply_to(message, "На такую комманду я не запрограммирован...")
-                # bot.send_message(message.chat.id, "На такую комманду я не запрограммирован...")
+                bot.reply_to(message, "Используйте кнопки виртуальной клавиатуры внизу для управления.")
+
+
+    def menu_tasks(message):
+        markup2 = types.InlineKeyboardMarkup(row_width=2)
+        item1 = types.InlineKeyboardButton("Задачи на сегодня", callback_data="today")
+        item2 = types.InlineKeyboardButton("Последние 10 задач", callback_data="tasks")
+        item3 = types.InlineKeyboardButton("Новая задача", callback_data="newtask")
+        markup2.add(item1, item2, item3)
+        bot.send_message(message.chat.id, "Выберите действие планировщика:", reply_markup=markup2)
+
+
+    def menu_dictionary(message):
+        user_lang = get_script(message.from_user.id)
+          
+        markup3 = types.InlineKeyboardMarkup(row_width=1)
+        item1 = types.InlineKeyboardButton("Поиск слова или фразы", callback_data="lookup")
+        item2 = types.InlineKeyboardButton("Сменить направление перевода", callback_data="set_lang")
+        markup3.add(item1, item2)
+        bot.send_message(message.chat.id, 
+                            f"Это бот Яндекс.Словаря. Он умеет переводить слова. Направление перевода - [{user_lang}]. Выберите действие:",
+                            reply_markup=markup3)

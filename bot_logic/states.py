@@ -8,3 +8,6 @@ class States(StatesGroup):
     new_task_due_date = State()
     tasks_make_done = State()
 
+    lang = State()
+    lookup = State()
+
