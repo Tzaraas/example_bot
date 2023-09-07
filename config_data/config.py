@@ -12,9 +12,9 @@ BOT_TOKEN = os.getenv("BOT_TOKEN")
 if BOT_TOKEN is None:
     exit("BOT_TOKEN отсутствует в переменных окружения")
 
-API_KEY = os.getenv("API_KEY")
-if API_KEY is None:
-    exit("API_KEY отсутствует в переменных окружения")
+API_GIF_KEY = os.getenv("API_GIF_KEY")
+if API_GIF_KEY is None:
+    exit("API_GIF_KEY отсутствует в переменных окружения")
 
 if os.path.exists(r"database\database.db"):
     DB_PATH = r"database\database.db"
@@ -27,4 +27,6 @@ DEFAULT_COMMANDS = (
     ("help", "Справка")
 )
 
-API_BASE_URL = ""
+DEFAULT_LANG = "ru"
+
+API_BASE_URL = "https://api.giphy.com/v1/gifs/"

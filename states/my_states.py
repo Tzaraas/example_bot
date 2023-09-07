@@ -1,5 +1,5 @@
 from telebot.handler_backends import State, StatesGroup
 
 
-class My_states(StatesGroup):
+class Status(StatesGroup):
     main = State()
