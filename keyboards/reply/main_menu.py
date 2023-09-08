@@ -1,9 +1,9 @@
-from telebot.types import KeyboardButton, ReplyKeyboardMarkup
+from telebot.types import ReplyKeyboardMarkup, KeyboardButton
 
 
 def menu_button() -> ReplyKeyboardMarkup:
         keyboard = ReplyKeyboardMarkup(resize_keyboard=True, is_persistent=True)
-        button_1 = KeyboardButton("Поднять себе настроение")
-        button_2 = KeyboardButton("Заняться делом")
+        button_1 = KeyboardButton("База данных Python")
+        button_2 = KeyboardButton("База данных SQL")
         keyboard.add(button_1, button_2)
         return keyboard

@@ -1,9 +1,9 @@
-from loader import bot
 from telebot.custom_filters import StateFilter
 
-from utils import set_bot_commands
-from database import db_conf
 import handlers
+from loader import bot
+from database import db_conf
+from utils import set_bot_commands
 
 
 if __name__ == "__main__":

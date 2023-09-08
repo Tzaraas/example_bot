@@ -17,7 +17,7 @@ def bot_start(message: Message):
         User.create(
             user_id=user_id,
             user_name=user_name,
-            user_lang = config.DEFAULT_LANG
+            user_lang=config.DEFAULT_LANG
         )
         bot.reply_to(message, "Добро пожаловать!")
     except IntegrityError:
