@@ -15,7 +15,7 @@ def main_text(message: Message):
             bot.send_message(message.chat.id, "Выберите интересующий раздел:", reply_markup=db_python.menu_button())
 
         case "База данных SQL":
-            bot.send_message(message.chat.id, "Раздел находится в разработке")  # TODO
+            bot.send_message(message.chat.id, "Раздел находится в разработке")  # TODO как только, так сразу.
 
         case _:
             send_gif(message)

@@ -22,10 +22,9 @@ def menu_prompt() -> InlineKeyboardMarkup:
 
 def menu_coll() -> InlineKeyboardMarkup:
         keyboard = InlineKeyboardMarkup(row_width=1)
-        button_1 = InlineKeyboardButton("Цифры", callback_data="int")
-        button_2 = InlineKeyboardButton("Строки", callback_data="str")
-        button_3 = InlineKeyboardButton("Списки", callback_data="list")
-        button_4 = InlineKeyboardButton("Словари", callback_data="dict")
+        button_1 = InlineKeyboardButton("Строки", callback_data="str")
+        button_2 = InlineKeyboardButton("Списки", callback_data="list")
+        button_3 = InlineKeyboardButton("Словари", callback_data="dict")
         button_0 = InlineKeyboardButton("Назад", callback_data="back")
-        keyboard.add(button_1, button_2, button_3, button_4, button_0)
+        keyboard.add(button_1, button_2, button_3, button_0)
         return keyboard

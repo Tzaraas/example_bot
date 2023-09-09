@@ -12,17 +12,18 @@ def db_python_call(call: CallbackQuery):
         case "prompt":
             bot.edit_message_text("Выбери интересующую тему:", call.from_user.id, call.message.id, reply_markup=db_python.menu_prompt())
         case "coll":
-            bot.edit_message_text("Выбери интересующую коллекцию:", call.from_user.id, call.message.id, reply_markup=db_python.menu_coll())  # TODO DB_Coll, DB_Method
+            bot.edit_message_text("Выбери интересующую коллекцию:", call.from_user.id, call.message.id, reply_markup=db_python.menu_coll())
         case "collections_types":
             bot.send_photo(call.from_user.id, open(r'utils\picture\collections_types.jpg', 'rb'))
-        case "int":
-            bot.send_message(call.from_user.id, "Сперва надо заполнить базу данных.")
         case "str":
-            bot.send_message(call.from_user.id, "Сперва надо заполнить базу данных.")
+            get_data(call, "str")
+            bot.send_message(call.from_user.id, "https://pythonworld.ru/tipy-dannyx-v-python/stroki-funkcii-i-metody-strok.html")
         case "list":
-            bot.send_message(call.from_user.id, "Сперва надо заполнить базу данных.")
+            get_data(call, "list")
+            bot.send_message(call.from_user.id, "https://pythonworld.ru/tipy-dannyx-v-python/spiski-list-funkcii-i-metody-spiskov.html")
         case "dict":
-            bot.send_message(call.from_user.id, "Сперва надо заполнить базу данных.")
+            get_data(call, "dict")
+            bot.send_message(call.from_user.id, "https://pythonworld.ru/tipy-dannyx-v-python/slovari-dict-funkcii-i-metody-slovarej.html")
         case "back":
             bot.edit_message_text("Выберите интересующий раздел:", call.from_user.id, call.message.id, reply_markup=db_python.menu_button())
 
@@ -30,4 +31,10 @@ def db_python_call(call: CallbackQuery):
 @bot.message_handler(state=Status.db_python)
 def db_python_text(message: Message):
     bot.set_state(message.from_user.id, Status.main)
-    bot.reply_to(message, "К чему бы это? Вернусь ка я лучше в главное меню. Теперь можно)")
+    bot.reply_to(message, "К чему это сейчас нажато? Вернусь ка я лучше в главное меню. Теперь жми)")
+
+
+def get_data(call, query):
+    for method in DB_Method.select(DB_Method.met_name, DB_Method.met_desc).join(DB_Coll).where(DB_Coll.coll_name == query):
+        bot.send_message(call.from_user.id, method, parse_mode="html")
+    

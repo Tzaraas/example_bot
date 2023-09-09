@@ -28,11 +28,7 @@ else:
     with open(r"database\database_dynamic.db", 'w') as db:
         DB_DYNAMIC_PATH = r"database\database_dynamic.db"
 
-if os.path.exists(r"database\database_static.db"):
-    DB_STATIC_PATH = r"database\database_static.db"
-else:
-    with open(r"database\database_static.db", 'w') as db:
-        DB_STATIC_PATH = r"database\database_static.db"
+DB_STATIC_PATH = r"database\database_static.db"
 # ====================================================
 
 

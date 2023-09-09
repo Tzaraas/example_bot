@@ -3,6 +3,7 @@ from peewee import (SqliteDatabase, Model,
     ForeignKeyField, DateField, BooleanField)
 
 from config_data.config import DB_DYNAMIC_PATH, DB_STATIC_PATH
+from database import static_data
 
 
 db_dynamic = SqliteDatabase(DB_DYNAMIC_PATH)
@@ -27,19 +28,18 @@ class Static(Model):
     class Meta:
         database = db_static
 
-# class DB_Python(Static):
-#     py_id = AutoField()
-#     py_name = ForeignKeyField()
-
 class DB_Coll(Static):
-    coll_id = AutoField()
+    coll_id = IntegerField(primary_key=True)
     coll_name = CharField()
 
 class DB_Method(Static):
     met_id = AutoField()
-    met_coll = ForeignKeyField(DB_Coll, backref="methods")
+    met_coll = ForeignKeyField(DB_Coll, backref='method')
     met_name = CharField()
     met_desc = CharField()
+
+    def __str__(self) -> str:
+        return f'<b>{self.met_name}</b>:  {self.met_desc}'
 
 
 def create_models():
@@ -47,5 +47,19 @@ def create_models():
 
 
 def filling_static_db():
-    pass  # TODO доработать заполнение базы данных собственно данными из static_data
+    db_dynamic.create_tables(Static.__subclasses__())
+
+    for coll_id, coll_name in static_data.dump['collections'].items():
+        DB_Coll.create(
+            coll_id=coll_id,
+            coll_name=coll_name
+            )
+        
+    for met_coll, method in static_data.dump['methods'].items():
+        for met_name, met_desc in method.items():
+            DB_Method.create(
+                met_coll=met_coll,
+                met_name=met_name,
+                met_desc=met_desc
+            )
     

@@ -135,4 +135,5 @@ dmypy.json
 test*
 
 # DataBase
-database.db
+database_dynamic.db
+database_static.db
