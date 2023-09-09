@@ -15,26 +15,38 @@ def db_python_call(call: CallbackQuery):
             bot.edit_message_text("Выбери интересующую коллекцию:", call.from_user.id, call.message.id, reply_markup=db_python.menu_coll())
         case "collections_types":
             bot.send_photo(call.from_user.id, open(r'utils\picture\collections_types.jpg', 'rb'))
-        case "str":
-            get_query(call, "str")
-            bot.send_message(call.from_user.id, "https://pythonworld.ru/tipy-dannyx-v-python/stroki-funkcii-i-metody-strok.html")
-        case "list":
-            get_data(call, "list")
-            bot.send_message(call.from_user.id, "https://pythonworld.ru/tipy-dannyx-v-python/spiski-list-funkcii-i-metody-spiskov.html")
-        case "dict":
-            get_data(call, "dict")
-            bot.send_message(call.from_user.id, "https://pythonworld.ru/tipy-dannyx-v-python/slovari-dict-funkcii-i-metody-slovarej.html")
+        case "str" | "list" | "dict":
+            get_query(call)
         case "back":
             bot.edit_message_text("Выберите интересующий раздел:", call.from_user.id, call.message.id, reply_markup=db_python.menu_button())
 
 
-def get_query(call: CallbackQuery, collection: str):
+def get_query(call: CallbackQuery):
     bot.send_message(call.from_user.id, "Введите ключевое слово или оставьте поле пустым и нажмите Enter:")
-    bot.register_next_step_handler_by_chat_id(call.message.id, get_data(call, collection, call.data))
+    with bot.retrieve_data(call.from_user.id) as memory:
+        memory['collection'] = call.data
+    bot.set_state(call.from_user.id, Status.listen)
 
-def get_data(call: CallbackQuery, collection: str, query: str):
-    for method in DB_Method.select(DB_Method.met_name, DB_Method.met_desc).join(DB_Coll).where(DB_Coll.coll_name == collection and DB_Method.met_desc % query):
-        bot.send_message(call.from_user.id, method, parse_mode="html")
+
+@bot.message_handler(state=Status.listen)
+def listen_query(message: Message):
+    with bot.retrieve_data(message.from_user.id) as memory:
+        bot.register_next_step_handler(message, get_data(message, memory['collection'], message.text))
+        match memory['collection']:
+            case "str":
+                bot.send_message(message.from_user.id, "https://pythonworld.ru/tipy-dannyx-v-python/stroki-funkcii-i-metody-strok.html")
+            case "list":
+                bot.send_message(message.from_user.id, "https://pythonworld.ru/tipy-dannyx-v-python/spiski-list-funkcii-i-metody-spiskov.html")
+            case "dict":
+                bot.send_message(message.from_user.id, "https://pythonworld.ru/tipy-dannyx-v-python/slovari-dict-funkcii-i-metody-slovarej.html")
+    bot.set_state(message.from_user.id, Status.db_python)
+    bot.send_message(message.from_user.id, "Выберите интересующий раздел:", reply_markup=db_python.menu_button())
+
+
+def get_data(message: Message, collection: str, query: str):
+    for method in DB_Method.select(DB_Method.met_name, DB_Method.met_desc).join(DB_Coll).where(DB_Coll.coll_name == collection):
+        if query in method.met_desc.lower():
+            bot.send_message(message.from_user.id, method, parse_mode="html")
 
 
 @bot.message_handler(state=Status.db_python)
