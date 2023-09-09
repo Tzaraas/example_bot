@@ -20,7 +20,7 @@ if BOT_TOKEN is None:
 # ====================================================
 
 
-# Пути баз данных
+# Базы данных
 # ====================================================
 if os.path.exists(r"database\database_dynamic.db"):
     DB_DYNAMIC_PATH = r"database\database_dynamic.db"
@@ -51,8 +51,6 @@ DEFAULT_COMMANDS = (
 API_GIF_KEY = os.getenv("API_GIF_KEY")
 if API_GIF_KEY is None:
     exit("API_GIF_KEY отсутствует в переменных окружения")
-
-DEFAULT_LANG = "ru"
 
 API_BASE_URL = "https://api.giphy.com/v1/gifs/"
 # ====================================================

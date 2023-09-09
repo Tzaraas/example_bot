@@ -3,8 +3,7 @@ from peewee import IntegrityError
 
 from loader import bot
 from states.my_states import Status
-from database.db_conf import User
-from config_data import config
+from database.models import User
 from keyboards.reply import main_menu
 
 
@@ -16,8 +15,7 @@ def bot_start(message: Message):
     try:
         User.create(
             user_id=user_id,
-            user_name=user_name,
-            user_lang=config.DEFAULT_LANG
+            user_name=user_name
         )
         bot.reply_to(message, "Добро пожаловать!")
     except IntegrityError:
