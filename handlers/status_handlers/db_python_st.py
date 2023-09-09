@@ -31,7 +31,7 @@ def db_python_call(call: CallbackQuery):
 @bot.message_handler(state=Status.db_python)
 def db_python_text(message: Message):
     bot.set_state(message.from_user.id, Status.main)
-    bot.reply_to(message, "К чему это сейчас нажато? Вернусь ка я лучше в главное меню. Теперь жми)")
+    bot.reply_to(message, "Прости, я прослушал. Повтори, пожалуйста.")
 
 
 def get_data(call, query):
