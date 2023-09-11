@@ -2,7 +2,7 @@ from telebot.types import Message
 from peewee import IntegrityError
 
 from database.models import User
-from keyboards.inline import menu_lv_0
+from keyboards.inline import front_lv_0
 from loader import bot
 
 
@@ -20,4 +20,4 @@ def bot_start(message: Message):
     except IntegrityError:
         bot.reply_to(message, f"Рад видеть вас снова, {user_name}!")
 
-    menu_lv_0.kb_base(message)
+    front_lv_0.kb_base(message)

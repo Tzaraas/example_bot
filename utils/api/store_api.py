@@ -4,7 +4,7 @@ import json
 from config_data.config import API_STORE_KEY, API_STORE_BASE_URL
 
 
-def weather_api_request(method, mode, query):
+def store_api_request(method, mode, query):
 
     suffix = 'geo/1.0/direct'
     url = f'{API_STORE_BASE_URL}{suffix}'

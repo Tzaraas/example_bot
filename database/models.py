@@ -14,12 +14,13 @@ class BaseModel(Model):
 
 class User(BaseModel):
     user_id = IntegerField(primary_key=True)
-    user_name = CharField()
+    user_name = CharField(null=False)
 
 class Words(BaseModel):
     word_id = AutoField()
-    word_name = CharField()
-    word_count = IntegerField()
+    word_user_id = IntegerField(null=False, unique=True)
+    word_name = CharField(null=False)
+    word_count = IntegerField(null=False)
 
 
 def create_models():
