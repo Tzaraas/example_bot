@@ -1,10 +1,9 @@
 from telebot.types import Message
 from peewee import IntegrityError
 
-from loader import bot
-from states.my_states import Status
 from database.models import User
-from keyboards.reply import main_menu
+from keyboards.inline import menu_lv_0
+from loader import bot
 
 
 @bot.message_handler(commands=["start"])
@@ -21,5 +20,4 @@ def bot_start(message: Message):
     except IntegrityError:
         bot.reply_to(message, f"Рад видеть вас снова, {user_name}!")
 
-    bot.set_state(message.from_user.id, Status.main)
-    bot.send_message(message.chat.id, "Чем займемся?", reply_markup=main_menu.menu_button())
+    menu_lv_0.kb_base(message)
