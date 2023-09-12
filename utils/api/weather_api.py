@@ -9,20 +9,20 @@ def weather_api_request(mode, query):
         case 'search':
             suffix = 'geo/1.0/direct'
             url = f'{API_WEATHER_BASE_URL}{suffix}'
-            params = {'q': query, 
+            querystring = {'q': query, 
                       'limit': 1, 
                       'appid': API_WEATHER_KEY, 
                       'lang': 'ru'}
         case 'get':
             suffix = 'data/2.5/weather'
             url = f'{API_WEATHER_BASE_URL}{suffix}'
-            params = {'lat': query[0], 
+            querystring = {'lat': query[0], 
                       'lon': query[1], 
                       'appid': API_WEATHER_KEY,
                       'units': 'metric',
                       'lang': 'ru'}
 
-    response = requests.get(url, params)
+    response = requests.get(url, querystring)
 
     if response.status_code == 200:
         raw_data = json.loads(response.text)

@@ -10,7 +10,7 @@ def kb_base(enter: Union[Message, CallbackQuery]):
     button_1 = InlineKeyboardButton("Простой пример - информация о выбранной стране", callback_data="l0_kb_b1")
     button_2 = InlineKeyboardButton("Стандартный уровень - запрос текущей погоды", callback_data="l0_kb_b2")
     button_3 = InlineKeyboardButton("Полноценный API - web магазин", callback_data="l0_kb_b3")
-    button_0 = InlineKeyboardButton("Завершить работу", callback_data="exit")
+    button_0 = InlineKeyboardButton("Завершить работу", callback_data="l0_exit")
     keyboard.add(button_1, button_2, button_3, button_0)
 
     text = "Взаимодействовать с API силами TelegramBotAPI очень легко.\nРассмотроим несколько примеров:"

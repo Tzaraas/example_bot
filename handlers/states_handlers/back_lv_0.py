@@ -1,11 +1,11 @@
 from telebot.types import Message, CallbackQuery
 
 from states.base_states import Level
-from keyboards.inline import front_lv_1
+from keyboards.inline import front_lv_0, front_lv_1, front_lv_2
 from loader import bot
 
 
-@bot.callback_query_handler(func=lambda call: True, state=Level.lv_0)
+@bot.callback_query_handler(func=lambda call: call.data.startswith('l0_'), state=Level.lv_0)
 def query_lv_0(call: CallbackQuery):
     match call.data:
 # -----------------------------------------------------------------------------------------
@@ -16,7 +16,9 @@ def query_lv_0(call: CallbackQuery):
         case "l0_kb_b3":  # Полноценный API - web магазин
             front_lv_1.kb_3(call)
 # -----------------------------------------------------------------------------------------
-        case "exit":
+        case "l0_exit":
             bot.stop_bot()
             bot.delete_state(call.from_user.id)
             bot.send_message(call.message.chat.id, "До новых встреч!")
+        case _:
+            bot.send_message(call.message.chat.id, "Этого тут быть не должно.")

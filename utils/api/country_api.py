@@ -6,9 +6,9 @@ from config_data.config import API_COUNTRY_BASE_URL
 
 def country_api_request(query):
     url = f'{API_COUNTRY_BASE_URL}{query}'
-    params = {'fields': 'name,subregion,capital,currencies'}
+    querystring = {'fields': 'name,subregion,capital,currencies'}
 
-    response = requests.get(url, params)
+    response = requests.get(url, querystring)
 
     if response.status_code == 200:
         raw_data = json.loads(response.text)

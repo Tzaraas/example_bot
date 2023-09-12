@@ -10,7 +10,7 @@ def kb_1(enter: Union[Message, CallbackQuery]):
     button_1 = InlineKeyboardButton("Пример работы API", callback_data="l1_k1_b1")
     button_2 = InlineKeyboardButton("Замечания о работе c API", callback_data="l1_k1_b2")
     button_3 = InlineKeyboardButton("Статистика использования API", callback_data="l1_k1_b3")
-    button_0 = InlineKeyboardButton("<< Вернуться назад", callback_data="back_main")
+    button_0 = InlineKeyboardButton("<< Вернуться назад", callback_data="l1_back_main")
     keyboard.add(button_1, button_2, button_3, button_0)
 
     text = "Базовая информация о стране.\nИспользуем сервис restcountries.com"
@@ -22,7 +22,7 @@ def kb_2(enter: Union[Message, CallbackQuery]):
     button_1 = InlineKeyboardButton("Пример работы API", callback_data="l1_k2_b1")
     button_2 = InlineKeyboardButton("Замечания о работе c API", callback_data="l1_k2_b2")
     button_3 = InlineKeyboardButton("Статистика использования API", callback_data="l1_k2_b3")
-    button_0 = InlineKeyboardButton("<< Вернуться назад", callback_data="back_main")
+    button_0 = InlineKeyboardButton("<< Вернуться назад", callback_data="l1_back_main")
     keyboard.add(button_1, button_2, button_3, button_0)
 
     text = "Погода за окном.\nИспользуем сервис openweathermap.org"
@@ -34,7 +34,7 @@ def kb_3(enter: Union[Message, CallbackQuery]):
     button_1 = InlineKeyboardButton("Пример работы API", callback_data="l1_k3_b1")
     button_2 = InlineKeyboardButton("Замечания о работе c API", callback_data="l1_k3_b2")
     button_3 = InlineKeyboardButton("Статистика использования API", callback_data="l1_k3_b3")
-    button_0 = InlineKeyboardButton("<< Вернуться назад", callback_data="back_main")
+    button_0 = InlineKeyboardButton("<< Вернуться назад", callback_data="l1_back_main")
     keyboard.add(button_1, button_2, button_3, button_0)
     
     text = "Полноценный web магазин.\nИспользуется https://rapidapi.com/iddogino1/api/my-store2"

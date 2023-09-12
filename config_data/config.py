@@ -62,5 +62,6 @@ if API_STORE_KEY is None:
     exit("API_STORE_KEY отсутствует в переменных окружения")
 
 API_STORE_BASE_URL = "https://my-store2.p.rapidapi.com/"
+API_STORE_HOST = "my-store2.p.rapidapi.com"
 # ----------------------------------------------------
 # ====================================================
