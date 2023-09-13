@@ -9,16 +9,12 @@ from loader import bot
 def query_lv_0(call: CallbackQuery):
     match call.data:
 # -----------------------------------------------------------------------------------------
-        case "l0_kb_b1":  # Простой пример - информация о выбранной стране
+        case "l0_kb_b1":                   # Простой пример - информация о выбранной стране
             front_lv_1.kb_1(call)
-        case "l0_kb_b2":  # Стандартный уровень - запрос текущей погоды
+        case "l0_kb_b2":                      # Стандартный уровень - запрос текущей погоды
             front_lv_1.kb_2(call)
-        case "l0_kb_b3":  # Полноценный API - web магазин
+        case "l0_kb_b3":                                    # Полноценный API - web магазин
             front_lv_1.kb_3(call)
 # -----------------------------------------------------------------------------------------
-        case "l0_exit":
-            bot.stop_bot()
-            bot.delete_state(call.from_user.id)
-            bot.send_message(call.message.chat.id, "До новых встреч!")
         case _:
             bot.send_message(call.message.chat.id, "Этого тут быть не должно.")

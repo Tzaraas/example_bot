@@ -22,12 +22,12 @@ def GetProduct(product_id):
             return None
 
 
-def GetProductsInCategory(category_name, skip=0):
+def GetProductsInCategory(category_name):
     headers = {'X-RapidAPI-Key': API_STORE_KEY, 
                'X-RapidAPI-Host': API_STORE_HOST}
 
     suffix = f'catalog/category/{category_name}/products'
-    querystring = {'skip': skip,'limit': '10'}
+    querystring = {'skip': '0','limit': '10'}  # Можно настроить вывод с нужным кол-вом строк и листать его.
     url = f'{API_STORE_BASE_URL}{suffix}'
 
     response = requests.get(url, params=querystring, headers=headers)
@@ -35,8 +35,8 @@ def GetProductsInCategory(category_name, skip=0):
     match response.status_code:
         case 200:
             raw_data = response.json()
-            for i in raw_data['products'].items():
-                data = f"{raw_data['name']}, id {raw_data['id']}."
+            for elem in raw_data['products']:
+                data = f"{elem['name']}, id {elem['id']}."
                 yield data
 
         case _:
@@ -111,19 +111,19 @@ def CreateOrder(user_name, user_address):
 
 
 def AddToOrder(order_id, product_id):
-    headers = {'X-RapidAPI-Key': API_STORE_KEY, 
+    headers = {'content-type': 'application/json',
+               'X-RapidAPI-Key': API_STORE_KEY, 
                'X-RapidAPI-Host': API_STORE_HOST}
 
-    suffix = f'order/{order_id}/product/{product_id}'
+    suffix = f'order/{order_id}/product'
+    payload = {'productId': f'{product_id}'}
     url = f'{API_STORE_BASE_URL}{suffix}'
 
-    response = requests.post(url, headers=headers)
+    response = requests.post(url, json=payload, headers=headers)
 
     match response.status_code:
         case 201:
-            raw_data = response.json()
-            print(raw_data)
-            data = f"Товар с id {product_id} успешно добавлен в заказ {order_id}."  # TODO
+            data = f"Товар с id {product_id} успешно добавлен в заказ {order_id}."
             return data
 
         case _:
@@ -141,9 +141,7 @@ def DeleteFromOrder(order_id, product_id):
 
     match response.status_code:
         case 200:
-            raw_data = response.json()
-            print(raw_data)
-            data = f"Товар с id {product_id} успешно удален из заказа {order_id}."  # TODO
+            data = f"Товар с id {product_id} успешно удален из заказа {order_id}."
             return data
 
         case _:
@@ -162,11 +160,7 @@ def GetOrder(order_id):
     match response.status_code:
         case 200:
             raw_data = response.json()
-            data = f"Заказ {raw_data['order']['id']} взят в работу? {raw_data['order']['created']}.\n "\
-                   f"Получатель {raw_data['order']['customer']}, адрес {raw_data['order']['address']}.\n "\
-                   f"Всего товаров: {raw_data['summary']['totalItems']}. Суммарная стоимость: {raw_data['summary']['totalCost']}.\n\n "\
-                   f"Список товаров:\n{raw_data['items']}"
-            return data
+            return raw_data
 
         case _:
             return None

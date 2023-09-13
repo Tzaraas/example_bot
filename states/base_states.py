@@ -6,5 +6,4 @@ class Level(StatesGroup):
     lv_1 = State()
     lv_2 = State()
 
-    listen_city = State()
-    listen_country = State()
+    listen = State()

@@ -1,6 +1,6 @@
 from telebot.types import Message
 
-from database.models import Words, User
+from database.models import Words
 from states.base_states import Level
 from utils.api import gif_api
 from loader import bot

@@ -11,4 +11,4 @@ if __name__ == "__main__":
     bot.add_custom_filter(StateFilter(bot))
     set_bot_commands.set_default_commands(bot)
     print('Загрузка прошла успешно.')
-    bot.polling()
+    bot.infinity_polling()

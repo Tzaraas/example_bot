@@ -15,4 +15,5 @@ def fork(enter: Union[Message, CallbackQuery], keyboard, text, lv):
         with bot.retrieve_data(enter.from_user.id) as memory:
             if memory:
                 bot.delete_message(enter.chat.id, memory['old'])
-        bot.send_message(enter.chat.id, text, reply_markup=keyboard)
+            memory['old'] = bot.send_message(enter.chat.id, text).message_id
+            bot.edit_message_text(text, enter.chat.id, memory['old'], reply_markup=keyboard)
