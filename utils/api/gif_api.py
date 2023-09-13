@@ -5,6 +5,8 @@ from config_data.config import API_GIF_KEY, API_GIF_BASE_URL
 
 
 def gif_api_request(mode, query, offset):
+    ''' Запрос к API гифок '''
+
     url = f'{API_GIF_BASE_URL}{mode}'
     querystring = {'api_key': API_GIF_KEY, 
               'q': query, 

@@ -5,6 +5,8 @@ from config_data.config import API_WEATHER_KEY, API_WEATHER_BASE_URL
 
 
 def weather_api_request(mode, query):
+    ''' Запрос к API о погоде '''
+
     match mode:
         case 'search':
             suffix = 'geo/1.0/direct'

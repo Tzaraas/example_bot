@@ -4,6 +4,8 @@ from config_data.config import API_STORE_KEY, API_STORE_BASE_URL, API_STORE_HOST
 
 
 def GetProduct(product_id):
+    ''' Запрос к API магазина (функционал - подробности о продукте) '''
+
     headers = {'X-RapidAPI-Key': API_STORE_KEY, 
                'X-RapidAPI-Host': API_STORE_HOST}
 
@@ -23,6 +25,8 @@ def GetProduct(product_id):
 
 
 def GetProductsInCategory(category_name):
+    ''' Запрос к API магазина (функционал - получить список товаров по категории) '''
+
     headers = {'X-RapidAPI-Key': API_STORE_KEY, 
                'X-RapidAPI-Host': API_STORE_HOST}
 
@@ -44,6 +48,8 @@ def GetProductsInCategory(category_name):
 
 
 def CreateProduct(product_name, price, category_name):
+    ''' Запрос к API магазина (функционал - создать продукт) '''
+
     headers = {'content-type': 'application/json',
                'X-RapidAPI-Key': API_STORE_KEY, 
                'X-RapidAPI-Host': API_STORE_HOST}
@@ -70,6 +76,8 @@ def CreateProduct(product_name, price, category_name):
 
 
 def DeleteProduct(product_id):
+    ''' Запрос к API магазина (функционал - удалить продукт) '''
+
     headers = {'X-RapidAPI-Key': API_STORE_KEY, 
                'X-RapidAPI-Host': API_STORE_HOST}
 
@@ -89,6 +97,8 @@ def DeleteProduct(product_id):
 
 
 def CreateOrder(user_name, user_address):
+    ''' Запрос к API магазина (функционал - создать заказ) '''
+
     headers = {'content-type': 'application/json',
                'X-RapidAPI-Key': API_STORE_KEY, 
                'X-RapidAPI-Host': API_STORE_HOST}
@@ -111,6 +121,8 @@ def CreateOrder(user_name, user_address):
 
 
 def AddToOrder(order_id, product_id):
+    ''' Запрос к API магазина (функционал - добавить в заказ) '''
+
     headers = {'content-type': 'application/json',
                'X-RapidAPI-Key': API_STORE_KEY, 
                'X-RapidAPI-Host': API_STORE_HOST}
@@ -131,6 +143,8 @@ def AddToOrder(order_id, product_id):
 
 
 def DeleteFromOrder(order_id, product_id):
+    ''' Запрос к API магазина (функционал - удалить из заказа) '''
+
     headers = {'X-RapidAPI-Key': API_STORE_KEY, 
                'X-RapidAPI-Host': API_STORE_HOST}
 
@@ -149,6 +163,8 @@ def DeleteFromOrder(order_id, product_id):
 
 
 def GetOrder(order_id):
+    ''' Запрос к API магазина (функционал - получить состояние заказа) '''
+
     headers = {'X-RapidAPI-Key': API_STORE_KEY, 
                'X-RapidAPI-Host': API_STORE_HOST}
 

@@ -1,7 +1,7 @@
 from telebot.custom_filters import StateFilter
 
 import handlers
-from loader import bot
+from utils.loader import bot
 from database import models
 from utils import set_bot_commands
 

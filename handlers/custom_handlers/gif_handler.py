@@ -3,11 +3,13 @@ from telebot.types import Message
 from database.models import Words
 from states.base_states import Level
 from utils.api import gif_api
-from loader import bot
+from utils.loader import bot
 
 
 @bot.message_handler(content_types=['text'], state=[Level.lv_0, Level.lv_1, Level.lv_2])
 def send_gif(message: Message):
+    ''' Отвечает за отлов ненужного текста на всех уровнях '''
+
     if Words.get_or_none(Words.word_name == message.text, Words.word_user_id == message.from_user.id):
         word = Words.update(word_count = Words.word_count + 1).where(Words.word_name == message.text, Words.word_user_id == message.from_user.id)
         word.execute()

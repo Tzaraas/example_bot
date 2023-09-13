@@ -3,11 +3,13 @@ from peewee import IntegrityError
 
 from database.models import User
 from keyboards.inline import front_lv_0
-from loader import bot
+from utils.loader import bot
 
 
 @bot.message_handler(commands=["start"])
 def bot_start(message: Message):
+    ''' Приветствует пользователя, является единственной точкой входа в программу '''
+
     user_id = message.from_user.id
     user_name = message.from_user.first_name
 

@@ -5,6 +5,8 @@ from config_data.config import API_COUNTRY_BASE_URL
 
 
 def country_api_request(query):
+    ''' Запрос к API информации по странам '''
+
     url = f'{API_COUNTRY_BASE_URL}{query}'
     querystring = {'fields': 'name,subregion,capital,currencies'}
 

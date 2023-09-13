@@ -5,11 +5,13 @@ from database.models import Cities, Countries
 from keyboards.inline import front_lv_0, front_lv_1, front_lv_2
 from database.models import Orders, Products
 from utils.api.aux_func import aux_func
-from loader import bot
+from utils.loader import bot
 
 
 @bot.callback_query_handler(func=lambda call: call.data.startswith('l1_'), state=Level.lv_1)
 def query_lv_1(call: CallbackQuery):
+    ''' Отвечает за отлов callback-ов на уровне 1 '''
+
     match call.data:
 # ------------------------------------------------------------- Базовая информация о стране
         case "l1_k1_b1":                                                    # Запустить API

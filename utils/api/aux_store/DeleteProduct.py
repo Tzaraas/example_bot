@@ -3,8 +3,10 @@ from telebot.types import Message, CallbackQuery
 from states.base_states import Level
 from keyboards.inline import front_lv_0, front_lv_1, front_lv_2
 from utils.api import store_api
-from loader import bot
+from utils.loader import bot
 
+
+''' Отвечает за логику работы API магазина (функционал - удалить продукт) '''
 
 def step1(call: CallbackQuery):
     bot.set_state(call.from_user.id, Level.listen)

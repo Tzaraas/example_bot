@@ -2,8 +2,10 @@ from telebot.types import Message, CallbackQuery
 from peewee import IntegrityError
 
 from database.models import Orders, Products
-from loader import bot
+from utils.loader import bot
 
+
+''' Отвечает за логику работы базы данных магазина (функционал - сохранить заказ в базу данных) '''
 
 def CompleteOrder(call: CallbackQuery):
     with bot.retrieve_data(call.from_user.id) as memory:
