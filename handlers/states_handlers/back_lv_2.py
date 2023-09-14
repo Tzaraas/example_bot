@@ -88,6 +88,7 @@ def query_lv_2(call: CallbackQuery):
         case "l2_back_l1_k2":                                    # В меню "Погода за окном"
             front_lv_1.kb_2(call)
         case "l2_back_l1_k3":                            # В меню "Полноценный web магазин"
+            bot.clear_step_handler_by_chat_id(call.message.chat.id)
             front_lv_1.kb_3(call)
         case _:
             bot.send_message(call.message.chat.id, "Этого тут быть не должно.")

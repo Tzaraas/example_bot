@@ -16,14 +16,12 @@ def step2(message: Message):
     with bot.retrieve_data(message.from_user.id) as memory:
         memory['product_name'] = message.text
     bot.send_message(message.chat.id, "Введите цену:")
-    bot.clear_step_handler_by_chat_id(message.chat.id)
     bot.register_next_step_handler(message, step3) 
 
 def step3(message: Message):
     with bot.retrieve_data(message.from_user.id) as memory:
         memory['price'] = message.text
     bot.send_message(message.chat.id, "Введите название категории:")
-    bot.clear_step_handler_by_chat_id(message.chat.id)
     bot.register_next_step_handler(message, step4)
 
 def step4(message: Message):
