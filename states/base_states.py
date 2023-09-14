@@ -6,4 +6,3 @@ class Level(StatesGroup):
 
     listen_city = State()
     listen_country = State()
-    listen_store = State()
