@@ -1,6 +1,5 @@
 from telebot.types import Message, CallbackQuery
 
-from states.base_states import Level
 from keyboards.inline import front_lv_0, front_lv_1, front_lv_2
 from utils.api import store_api
 from utils.loader import bot
@@ -10,18 +9,21 @@ from utils.loader import bot
 
 def step1(call: CallbackQuery):
     bot.send_message(call.message.chat.id, "Введите название товара:")
+    bot.clear_step_handler_by_chat_id(call.message.chat.id)
     bot.register_next_step_handler(call.message, step2)
 
 def step2(message: Message):
     with bot.retrieve_data(message.from_user.id) as memory:
         memory['product_name'] = message.text
     bot.send_message(message.chat.id, "Введите цену:")
+    bot.clear_step_handler_by_chat_id(message.chat.id)
     bot.register_next_step_handler(message, step3) 
 
 def step3(message: Message):
     with bot.retrieve_data(message.from_user.id) as memory:
         memory['price'] = message.text
     bot.send_message(message.chat.id, "Введите название категории:")
+    bot.clear_step_handler_by_chat_id(message.chat.id)
     bot.register_next_step_handler(message, step4)
 
 def step4(message: Message):
