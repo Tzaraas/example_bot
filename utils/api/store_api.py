@@ -135,7 +135,7 @@ def AddToOrder(order_id, product_id):
 
     match response.status_code:
         case 201:
-            data = f"Товар с id {product_id} успешно добавлен в заказ {order_id}."
+            data = f"Отправлен запрос на добавление товара с id {product_id} в заказ {order_id}."  # TODO Проходит, даже если заказа нет.
             return data
 
         case _:

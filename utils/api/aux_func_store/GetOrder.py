@@ -9,7 +9,7 @@ from utils.loader import bot
 ''' Отвечает за логику работы API магазина (функционал - получить состояние заказа) '''
 
 def step1(call: CallbackQuery):
-    bot.set_state(call.from_user.id, Level.listen)
+    bot.set_state(call.from_user.id, Level.listen_store)
     bot.send_message(call.message.chat.id, "Введите id заказа:")
     bot.register_next_step_handler(call.message, step2)
 

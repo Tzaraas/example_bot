@@ -2,13 +2,14 @@ from telebot.types import Message, CallbackQuery
 from telebot.apihelper import ApiTelegramException
 from typing import Union
 
+from states.base_states import Level
 from utils.loader import bot
 
 
-def fork(enter: Union[Message, CallbackQuery], keyboard, text, lv):
+def fork(enter: Union[Message, CallbackQuery], keyboard, text):
     ''' Вилка, определяет логику работы клавиатуры, в т.ч. удаления ее старой версии. '''
 
-    bot.set_state(enter.from_user.id, lv)
+    bot.set_state(enter.from_user.id, Level.read)
     
     if isinstance(enter, CallbackQuery):
         with bot.retrieve_data(enter.from_user.id) as memory:

@@ -1,1 +1,1 @@
-from . import gif_handler, spam_handler
+from . import aux_handler, spam_handler

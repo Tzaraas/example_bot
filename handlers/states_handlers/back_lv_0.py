@@ -1,11 +1,10 @@
 from telebot.types import Message, CallbackQuery
 
-from states.base_states import Level
 from keyboards.inline import front_lv_0, front_lv_1, front_lv_2
 from utils.loader import bot
 
 
-@bot.callback_query_handler(func=lambda call: call.data.startswith('l0_'), state=Level.lv_0)
+@bot.callback_query_handler(func=lambda call: call.data.startswith('l0_'))
 def query_lv_0(call: CallbackQuery):
     ''' Отвечает за отлов callback-ов на уровне 0 '''
     

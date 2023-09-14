@@ -1,13 +1,12 @@
 from telebot.types import Message, CallbackQuery
 
-from states.base_states import Level
 from keyboards.inline import front_lv_0, front_lv_1, front_lv_2
 from utils import aux_text, out_kb
-from utils.api import aux_store
+from utils.api import aux_func_store
 from utils.loader import bot
 
 
-@bot.callback_query_handler(func=lambda call: call.data.startswith('l2_'), state=Level.lv_2)
+@bot.callback_query_handler(func=lambda call: call.data.startswith('l2_'))
 def query_lv_2(call: CallbackQuery):
     ''' Отвечает за отлов callback-ов на уровне 2 '''
     
@@ -42,23 +41,23 @@ def query_lv_2(call: CallbackQuery):
             front_lv_2.kb_2(call.message)
 # --------------------------------------------------------------------------------- Магазин
         case "l2_k3_b1":                                                 # Создание позиции
-            aux_store.CreateProduct.step1(call)
+            aux_func_store.CreateProduct.step1(call)
         case "l2_k3_b2":                                                 # Удаление позиции
-            aux_store.DeleteProduct.step1(call)
+            aux_func_store.DeleteProduct.step1(call)
         case "l2_k3_b3":                                                   # Cписок товаров
-            aux_store.GetProductsInCategory.step1(call)
+            aux_func_store.GetProductsInCategory.step1(call)
         case "l2_k3_b4":                                                    # Выбрать товар
-            aux_store.GetProduct.step1(call)
+            aux_func_store.GetProduct.step1(call)
         case "l2_k3_b5":                                                    # Создать заказ
-            aux_store.CreateOrder.step1(call)
+            aux_func_store.CreateOrder.step1(call)
         case "l2_k3_b6":                                                # Проверить корзину
-            aux_store.GetOrder.step1(call)
+            aux_func_store.GetOrder.step1(call)
         case "l2_k3_b7":                                                 # Добавить в заказ
-            aux_store.AddToOrder.step1(call)
+            aux_func_store.AddToOrder.step1(call)
         case "l2_k3_b8":                                                # Удалить из заказа
-            aux_store.DeleteFromOrder.step1(call)
+            aux_func_store.DeleteFromOrder.step1(call)
         case "l2_k3_b9":                                                   # Оформить заказ
-            aux_store.MakeAnOrder.CompleteOrder(call)
+            aux_func_store.MakeAnOrder.CompleteOrder(call)
 # ------------------------------------------------------ Замечания о работе c web магазином
         case "l2_k4_b1":                                         # Несколько типов запросов
             bot.send_photo(call.message.chat.id, open('utils\img\img6-1.jpg', 'rb'))

@@ -6,23 +6,17 @@ from utils.api import store_api
 from utils.loader import bot
 
 
-''' Отвечает за логику работы API магазина (функционал - создать заказ) '''
+''' Отвечает за логику работы API магазина (функционал - подробности о продукте) '''
 
 def step1(call: CallbackQuery):
-    bot.set_state(call.from_user.id, Level.listen)
-    bot.send_message(call.message.chat.id, "Введите имя получателя:")
+    bot.set_state(call.from_user.id, Level.listen_store)
+    bot.send_message(call.message.chat.id, "Введите id товара:")
     bot.register_next_step_handler(call.message, step2)
 
 def step2(message: Message):
     with bot.retrieve_data(message.from_user.id) as memory:
-        memory['user_name'] = message.text
-    bot.send_message(message.chat.id, "Введите адрес:")
-    bot.register_next_step_handler(message, step3) 
-
-def step3(message: Message):
-    with bot.retrieve_data(message.from_user.id) as memory:
-        memory['user_address'] = message.text
-        answer = store_api.CreateOrder(memory['user_name'], memory['user_address'])
+        memory['product_id'] = message.text
+        answer = store_api.GetProduct(memory['product_id'])
     
     if answer:
         bot.send_message(message.chat.id, answer)
@@ -30,4 +24,3 @@ def step3(message: Message):
         bot.send_message(message.chat.id, "Что-то пошло не так. Попробуйте снова, следите за корректностю ввода.")
 
     front_lv_2.kb_3(message)
-    

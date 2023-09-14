@@ -1,7 +1,6 @@
 from telebot.types import InlineKeyboardMarkup, InlineKeyboardButton, Message, CallbackQuery
 from typing import Union
 
-from states.base_states import Level
 from utils import out_kb
 
 
@@ -13,4 +12,4 @@ def kb_base(enter: Union[Message, CallbackQuery]):
     keyboard.add(button_1, button_2, button_3)
 
     text = "Взаимодействовать с API силами TelegramBotAPI очень легко.\nРассмотроим несколько примеров:"
-    out_kb.fork(enter, keyboard, text, Level.lv_0)
+    out_kb.fork(enter, keyboard, text)

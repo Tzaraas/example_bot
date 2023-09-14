@@ -6,23 +6,17 @@ from utils.api import store_api
 from utils.loader import bot
 
 
-''' Отвечает за логику работы API магазина (функционал - удалить из заказа) '''
+''' Отвечает за логику работы API магазина (функционал - удалить продукт) '''
 
 def step1(call: CallbackQuery):
-    bot.set_state(call.from_user.id, Level.listen)
-    bot.send_message(call.message.chat.id, "Введите id заказа:")
+    bot.set_state(call.from_user.id, Level.listen_store)
+    bot.send_message(call.message.chat.id, "Введите id товара:")
     bot.register_next_step_handler(call.message, step2)
 
 def step2(message: Message):
     with bot.retrieve_data(message.from_user.id) as memory:
-        memory['order_id'] = message.text
-    bot.send_message(message.chat.id, "Введите id товара:")
-    bot.register_next_step_handler(message, step3) 
-
-def step3(message: Message):
-    with bot.retrieve_data(message.from_user.id) as memory:
         memory['product_id'] = message.text
-        answer = store_api.DeleteFromOrder(memory['order_id'], memory['product_id'])
+        answer = store_api.DeleteProduct(memory['product_id'])
     
     if answer:
         bot.send_message(message.chat.id, answer)
